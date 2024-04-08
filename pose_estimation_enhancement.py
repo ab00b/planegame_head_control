@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import paddlehub as hub
-from paddlehub.common.logger import logger
+from paddlehub.utils.log import logger
 import time
 import math
 import os

@@ -16,7 +16,7 @@ import supply
 import cv2
 import numpy as np
 import paddlehub as hub
-from paddlehub.common.logger import logger
+from paddlehub.utils.log import logger
 
 
 class HeadPostEstimation():
@@ -35,7 +35,7 @@ class HeadPostEstimation():
         """
         try:
             # 选择GPU运行，use_gpu=True，并且在运行整个教程代码之前设置CUDA_VISIBLE_DEVICES环境变量
-            res = self.module.keypoint_detection(images=[image], use_gpu=True)
+            res = self.module.keypoint_detection(images=[image], use_gpu=False)
             return True, res[0]['data'][0]
         except Exception as e:
             logger.error("Get face landmark localization failed! Exception: %s " % e)
@@ -109,7 +109,7 @@ class HeadPostEstimation():
             img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
             # 本地显示预测视频框，AIStudio项目不支持显示视频框
-            #cv2.imshow('Pose Estimation', img_rgb)
+            cv2.imshow('Pose Estimation', img_rgb)
 
             return nose_position_h, nose_position_v, lips_distance
 
@@ -523,8 +523,7 @@ def main():
     # 用于计boss能量
     _delay = 0
 
-    # 用于计算我方mp
-    # m为随着等级提升而增加的能量上限
+    # 用于计算我方mp, m为随着等级提升而增加的能量上限
     m = 1000
     mp = m // 20
 
